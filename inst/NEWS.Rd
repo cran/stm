@@ -1,5 +1,28 @@
 \name{NEWS}
 \title{NEWS file for the stm package}
+\section{Version 0.6.12}{
+  \itemize{
+    \item Added permutationTest() function and associated plot capabilities
+    \item Updates to the vignette.
+    \item Added functionality to a few plotting functions.
+    \item When using summary() and labelTopics() content covariate models now have labels
+          thresholded by a small value.  Thus one may see no labels or very few labels
+          particularly for topic-covariate interactions which indicates that there are no
+          sizable positive deviations from the baseline.
+}}
+\section{Version 0.6.9}{
+  \itemize{
+    \item S3 method for findThoughts and ability to threshold by theta.
+    \item Allow estimateEffect() to receive a data frame. (Thanks to Baoqiang Cao for pointing this out)
+}}
+\section{Version 0.6.7}{
+  \itemize{
+    \item Major updates to the vignette
+    \item Minor Updates to several plotting functions
+    \item Fixed an error where labelTopics() would mislabel when passed topic numbers out of order
+          (Thanks to Jetson Leder-Luis for pointing this out)
+    \item Introduction of the termitewriter function.
+}}
 \section{Version 0.6.1}{
   \itemize{
     \item Version for submission to CRAN (2/28/2014)

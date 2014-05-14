@@ -34,7 +34,8 @@ labelTopics <- function (model, topics=NULL, n = 7, frexweight=.5) {
   } else {
     labs <- lapply(model$beta$kappa$params, function(x) {
       windex <- order(x,decreasing=TRUE)[1:n]
-      ifelse(x[windex]>0, vocab[windex], "")
+      #we want to threshold by some minimal value.
+      ifelse(x[windex]>1e-3, vocab[windex], "")
     }) 
     labs <- do.call(rbind, labs)
     A <- model$settings$dim$A
@@ -63,10 +64,10 @@ print.labelTopics <- function(x,...) {
     for(i in 1:length(x$topicnums)) {
       toprint <- sprintf("Topic %i Top Words:\n \t Highest Prob: %s \n \t FREX: %s \n \t Lift: %s \n \t Score: %s \n", 
                          x$topicnums[i], 
-                         commas(x$prob[i,]),
-                         commas(x$frex[i,]),
-                         commas(x$lift[i,]),
-                         commas(x$score[i,]))
+                         commas(x$prob[x$topicnums[i],]),
+                         commas(x$frex[x$topicnums[i],]),
+                         commas(x$lift[x$topicnums[i],]),
+                         commas(x$score[x$topicnums[i],]))
       cat(toprint)
     }
   } else {
