@@ -1,4 +1,4 @@
-4cacf0bbc5e410a86a8964ef1e60c7e6 *DESCRIPTION
+dc4a872e684661cf80f2b9b8bb59928c *DESCRIPTION
 1d7aefb0708d48f44159ff25390ae1b4 *LICENSE
 12f770b2bb976da3bb0004277d28c127 *NAMESPACE
 6b20503b235711fa5092b28014ee013c *R/STMbetakappa.R
@@ -20,12 +20,12 @@ aae1c9e5f4c9a789b07053148804e7a7 *R/STMmu.R
 9e54a93c55e17c629e64449f89b48cf7 *R/labelTopics.R
 6fb92e016c827fa2e8dc7d060fb0fd63 *R/manyTopics.R
 11aec633bd9755f22c238894094bc109 *R/permute.R
-ffa7e7b8308724d7c4c2e73ed3be09d8 *R/plot.STM.R
+a4e69f11ecc31602c0c151c88950609b *R/plot.STM.R
 e58abe46d27c57fc33e4bebfa7680cec *R/plot.estimateEffect.R
 72e21366e50d90f68564c1633fa1cac1 *R/plotModels.R
 3c299a41bd67116a807fb147f193af20 *R/plotQuote.R
 0f12d339fcf121213132371c23924c22 *R/plotTopicLoess.R
-2512750bb2d6098e4071dbe5bb944416 *R/prepDocuments.R
+998eb0515829226f313cfc9f6f96b4d4 *R/prepDocuments.R
 386fe64b90c8db438b8517dae3d18d41 *R/readCorpus.R
 3df2ef2cb72e41c4692426a13aed1fba *R/s.R
 f73c0cb1f1b51ea4e5bb1a6f3c1e840c *R/selectModel.R
@@ -34,7 +34,7 @@ f73c0cb1f1b51ea4e5bb1a6f3c1e840c *R/selectModel.R
 377c310448f72a41c4b1fc54b8b72ecb *R/stm.control.R
 11931d2b882aaef67177065ff4a5539e *R/summary.STM.R
 b5ef98ca53a728ace89cb8eb236a303a *R/termitewriter.R
-6c128cc71c5d76f9a7e1ffc9ba3c77ef *R/textProcessor.R
+b5f4b9f805bd5f2b0be4b81f9e0f6acc *R/textProcessor.R
 91fd5c3abce9cff14802a46878a4c376 *R/thetaPosterior.R
 bc4441c7ea587ffcadda30ef00501c5b *R/topicCorr.R
 d5f126e480cbec9236f250662203c5e7 *R/topicQuality.R
@@ -45,17 +45,17 @@ d5f126e480cbec9236f250662203c5e7 *R/topicQuality.R
 ead02c609ad7c1b09a7866b2186b360b *data/gadarianFit.RData
 e8a66f259862a8c18caefa289fe163a5 *data/poliblog5k.RData
 c519b29abd01bb0f0e08d1c8b2da52bd *inst/CITATION
-d65a7449163675e51193f18b4ea6f34e *inst/NEWS.Rd
+05340651dcbaea32b2ef896099c3dadf *inst/NEWS.Rd
 adb69f0402bb1a3cd217bf56d3761032 *inst/doc/stmVignette.R
-73e203d8757878ab209ba42cdca56da4 *inst/doc/stmVignette.Rnw
-fe3dfd56b2ee05d30a9741830f037502 *inst/doc/stmVignette.pdf
+ad76afdb508f3812dba3325d1ac53784 *inst/doc/stmVignette.Rnw
+ce7bdd85f0136bdef8c7f412d53e3f70 *inst/doc/stmVignette.pdf
 b932970d2e7c74072e9675c657111b77 *man/estimateEffect.Rd
 3457895c323065b95ab78a411d5f92fc *man/findThoughts.Rd
 d0b4619ee2a476a37720f7c09e0e1211 *man/gadarian.Rd
 fdc153419f410a74939acd0124aadd57 *man/labelTopics.Rd
 ab2dc72f840f15b1981a78c79ad4ebe6 *man/manyTopics.Rd
 016ddd2bd8f0bc55d57b329062a2a331 *man/permutationTest.Rd
-6e8afa08df95ca23dfae48472591794c *man/plot.STM.Rd
+67a4135efdee4e1ccd9ebad9d611ca9b *man/plot.STM.Rd
 e1d981011f48fb0accdd87804b7ebe3c *man/plot.STMpermute.Rd
 f6eede52457824697cd9428b6e51e9ce *man/plot.estimateEffect.Rd
 e9eaa8b04c57ebad75c09311cc1a9a2a *man/plot.topicCorr.Rd
@@ -63,7 +63,7 @@ b332ef21864c71e71ee0edc60cede617 *man/plotModels.Rd
 7e4ded68ac9bf190d60e4d8ade394159 *man/plotQuote.Rd
 4c95337f4b9379e44d4d6deffee89284 *man/plotTopicLoess.Rd
 ee5ab2f4c02a6e1a40760e0b153fecd1 *man/poliblog5k.Rd
-f29fd11b156d73df850acde2e179a1f8 *man/prepDocuments.Rd
+b3c04a3141c8f42264550e47f496aab2 *man/prepDocuments.Rd
 76b88ef69059cc0a352e6fee7b51be72 *man/readCorpus.Rd
 6dd7fdc63a1a7ec87cbfa40ed86a4c20 *man/s.Rd
 f0b0a7895bf766243e262710b02a7461 *man/selectModel.Rd
@@ -87,5 +87,5 @@ da49a365bcacfc51f2dbb1d712af7b8f *vignettes/stmVignette-008.pdf
 8c94ef0423a44651483542180ef26f20 *vignettes/stmVignette-022.pdf
 08587ded8bdf4dc6ba1c70fe672fada1 *vignettes/stmVignette-025.pdf
 1d8d79243a14a191a07346996a71ecbe *vignettes/stmVignette-026.pdf
-73e203d8757878ab209ba42cdca56da4 *vignettes/stmVignette.Rnw
+ad76afdb508f3812dba3325d1ac53784 *vignettes/stmVignette.Rnw
 3e041a90ac2f8863e339effc305a33c8 *vignettes/vignetteBib.bib
