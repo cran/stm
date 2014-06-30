@@ -1,5 +1,19 @@
 \name{NEWS}
 \title{NEWS file for the stm package}
+\section{Version 0.6.24}{
+  \itemize{
+    \item Fix an error with vignettes building on linux machines
+    \item sageLabels exported but not documented
+    \item factorCheck diagnostic function exported
+}}
+\section{Version 0.6.19}{
+  \itemize{
+    \item Bug fix in the semantic Coherence function that affected content covariate models.
+    \item Bug fix to plot.STM() where for content covariate models with  only a subset of topics requested the labels would show up as mostly NA. Thanks to Jetson Leder-Luis for pointing this out.
+    \item Bug fix for the readCorpus() function with txtorg vocab.  Thanks to Justin Farrell for pointing this out.
+    \item Added some diagnostics to notify the user when words have been dropped in preprocessing.
+    \item Automatically coerce dates to numeric in spline function.
+}}
 \section{Version 0.6.16}{
   \itemize{
     \item Very minor change with textProcessor() to accomodate API change in tm version 0.6
