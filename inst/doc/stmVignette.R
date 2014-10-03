@@ -1,14 +1,14 @@
 ### R code from vignette source 'stmVignette.Rnw'
 
 ###################################################
-### code chunk number 1: stmVignette.Rnw:172-174
+### code chunk number 1: stmVignette.Rnw:180-182
 ###################################################
 library(stm)
 set.seed(02138)
 
 
 ###################################################
-### code chunk number 2: stmVignette.Rnw:183-194 (eval = FALSE)
+### code chunk number 2: stmVignette.Rnw:191-201 (eval = FALSE)
 ###################################################
 ## #read in your data that is in a spreadsheet form .csv file here)
 ## data <- read.csv("poliblogs2008.csv")
@@ -20,47 +20,51 @@ set.seed(02138)
 ## docs <- out$documents
 ## vocab <- out$vocab
 ## meta  <-out$meta
-## 
 
 
 ###################################################
-### code chunk number 3: stmVignette.Rnw:221-225 (eval = FALSE)
+### code chunk number 3: stmVignette.Rnw:208-210 (eval = FALSE)
+###################################################
+## plotRemoved(processed$documents, processed$vocab, processed$meta,
+## lower.thresh=seq(1,200, by=100))
+
+
+###################################################
+### code chunk number 4: stmVignette.Rnw:250-253 (eval = FALSE)
 ###################################################
 ## poliblogPrevFit <- stm(out$documents,out$vocab,K=20,
 ##             prevalence =~ rating+ s(day), max.em.its=75,
 ##             data=out$meta,seed=5926696)
-## 
 
 
 ###################################################
-### code chunk number 4: stmVignette.Rnw:230-231
+### code chunk number 5: stmVignette.Rnw:258-259
 ###################################################
  load(url("http://goo.gl/91KbfS"))
 
 
 ###################################################
-### code chunk number 5: stmVignette.Rnw:241-245 (eval = FALSE)
+### code chunk number 6: stmVignette.Rnw:269-272 (eval = FALSE)
 ###################################################
 ## poliblogSelect <- selectModel(out$documents,out$vocab,K=20,
 ##         prevalence =~ rating+s(day), max.em.its=75,
 ##         data=meta,runs=20,seed=8458159)
-## 
 
 
 ###################################################
-### code chunk number 6: stmVignette.Rnw:253-254
+### code chunk number 7: stmVignette.Rnw:280-281
 ###################################################
 plotModels(poliblogSelect)
 
 
 ###################################################
-### code chunk number 7: stmVignette.Rnw:263-264 (eval = FALSE)
+### code chunk number 8: stmVignette.Rnw:290-291 (eval = FALSE)
 ###################################################
 ## poliblogPrevFit<-poliblogSelect$runout[[3]] #choose the third model
 
 
 ###################################################
-### code chunk number 8: stmVignette.Rnw:271-279 (eval = FALSE)
+### code chunk number 9: stmVignette.Rnw:298-306 (eval = FALSE)
 ###################################################
 ## storage<-manyTopics(out$documents,out$vocab,K=c(7,10),
 ##         prevalence =~ rating+s(day),data=meta, runs=10)
@@ -73,13 +77,13 @@ plotModels(poliblogSelect)
 
 
 ###################################################
-### code chunk number 9: stmVignette.Rnw:298-299
+### code chunk number 10: stmVignette.Rnw:325-326
 ###################################################
 labelTopics(poliblogPrevFit, c(1, 7, 10))
 
 
 ###################################################
-### code chunk number 10: stmVignette.Rnw:308-311
+### code chunk number 11: stmVignette.Rnw:335-338
 ###################################################
 thoughts1<-findThoughts(poliblogPrevFit, texts=shortdoc, n=2, topics=1)$docs[[1]]
 thoughts7 <- findThoughts(poliblogPrevFit, texts=shortdoc, n=2, topics=7)$docs[[1]]
@@ -87,14 +91,14 @@ thoughts10 <- findThoughts(poliblogPrevFit, texts=shortdoc, n=2, topics=10)$docs
 
 
 ###################################################
-### code chunk number 11: stmVignette.Rnw:315-317
+### code chunk number 12: stmVignette.Rnw:342-344
 ###################################################
 thoughts7 <- c("The Sarah Palin Digest: What We Know About McCain's Running Mate   Very little was known nationally about Alaska Gov. Sarah Palin (R) until Sen. John McCain (R-AZ) selected her as his running mate on Aug. 29. Tonight, Palin will be speaking in", "Here it is: The bio video of Sarah Palin that was supposed to air at the Republican convention last night before her speech.  You should watch it. The video, which was leaked (surprisingly) to Fox News, gives us a glimpse into how the Republicans were")
 thoughts10 <- c("Karl Rove orchestrating the Bush Legacy project. President Bush's interview with ABC's Charlie Gibson this week was the first of several planned exit interviews. According to White House press secretary Dana Perino, Bush", "Flashback: Seven years ago today, Bush received Bin Laden Determined to Strike in U.S. memo.  Today marks seven years since the day President Bush received a President's Daily Brief entitled Bin Laden Determined to Strike in U.S.")
 
 
 ###################################################
-### code chunk number 12: stmVignette.Rnw:321-325
+### code chunk number 13: stmVignette.Rnw:348-352
 ###################################################
 par(mfrow = c(2, 2),mar=c(.5,.5,1,.5))
 plotQuote(thoughts1, width=40, main="Topic 1")
@@ -103,7 +107,7 @@ plotQuote(thoughts10, width=40, main="Topic 10")
 
 
 ###################################################
-### code chunk number 13: stmVignette.Rnw:341-344
+### code chunk number 14: stmVignette.Rnw:368-371
 ###################################################
 meta$rating<-as.factor(meta$rating)
 prep <- estimateEffect(1:20 ~ rating+s(day),poliblogPrevFit,
@@ -111,7 +115,7 @@ prep <- estimateEffect(1:20 ~ rating+s(day),poliblogPrevFit,
 
 
 ###################################################
-### code chunk number 14: stmVignette.Rnw:357-364
+### code chunk number 15: stmVignette.Rnw:384-391
 ###################################################
 plot.estimateEffect(prep, covariate = "rating", topics = c(1, 7, 10),
         model=poliblogPrevFit, method="difference",
@@ -123,7 +127,7 @@ plot.estimateEffect(prep, covariate = "rating", topics = c(1, 7, 10),
 
 
 ###################################################
-### code chunk number 15: stmVignette.Rnw:379-384
+### code chunk number 16: stmVignette.Rnw:406-411
 ###################################################
 plot.estimateEffect(prep, "day", method="continuous", topics=7, model=z,
 printlegend=FALSE, xaxt="n", xlab="Time (2008)")
@@ -133,28 +137,33 @@ axis(1, at=as.numeric(monthseq)-min(as.numeric(monthseq)), labels=monthnames)
 
 
 ###################################################
-### code chunk number 16: stmVignette.Rnw:395-399 (eval = FALSE)
+### code chunk number 17: stmVignette.Rnw:422-425 (eval = FALSE)
 ###################################################
 ## poliblogContent <- stm(out$documents,out$vocab,K=20,
 ##         prevalence =~ rating+ s(day), content=~rating,
 ##         max.em.its=75, data=out$meta,seed=5593453)
-## 
 
 
 ###################################################
-### code chunk number 17: stmVignette.Rnw:407-408
+### code chunk number 18: stmVignette.Rnw:433-434
 ###################################################
 plot.STM(poliblogContent,type="perspectives", topics=10)
 
 
 ###################################################
-### code chunk number 18: stmVignette.Rnw:418-419
+### code chunk number 19: stmVignette.Rnw:445-446
 ###################################################
 plot.STM(poliblogPrevFit,type="perspectives", topics=c(9, 10))
 
 
 ###################################################
-### code chunk number 19: stmVignette.Rnw:430-433 (eval = FALSE)
+### code chunk number 20: stmVignette.Rnw:457-458
+###################################################
+cloud(poliblogPrevFit, topic=7)
+
+
+###################################################
+### code chunk number 21: stmVignette.Rnw:469-472 (eval = FALSE)
 ###################################################
 ## poliblogInteraction <- stm(out$documents,out$vocab,K=20,
 ##         prevalence =~ rating* day, max.em.its=75,
@@ -162,35 +171,36 @@ plot.STM(poliblogPrevFit,type="perspectives", topics=c(9, 10))
 
 
 ###################################################
-### code chunk number 20: stmVignette.Rnw:438-443
+### code chunk number 22: stmVignette.Rnw:477-483
 ###################################################
 prep <- estimateEffect(c(1) ~ rating*day, poliblogInteraction,
         metadata=meta, uncertainty="None")
 
 plot.estimateEffect(prep, covariate="day", model=poliblogInteraction,
-        method="continuous",xlab="Days",labeltype="custom",custom.labels=c("Liberals","Conservatives"))
+        method="continuous",xlab="Days",labeltype="custom",
+        custom.labels=c("Liberals","Conservatives"))
 
 
 ###################################################
-### code chunk number 21: stmVignette.Rnw:460-461
+### code chunk number 23: stmVignette.Rnw:500-501
 ###################################################
 plot.STM(poliblogPrevFit,type="summary", xlim=c(0,.4))
 
 
 ###################################################
-### code chunk number 22: stmVignette.Rnw:470-471
+### code chunk number 24: stmVignette.Rnw:510-511
 ###################################################
 mod.out.corr<-topicCorr(poliblogPrevFit)
 
 
 ###################################################
-### code chunk number 23: stmVignette.Rnw:476-477
+### code chunk number 25: stmVignette.Rnw:516-517
 ###################################################
 plot.topicCorr(mod.out.corr)
 
 
 ###################################################
-### code chunk number 24: stmVignette.Rnw:504-506
+### code chunk number 26: stmVignette.Rnw:583-585
 ###################################################
 plot(poliblogPrevFit$convergence$bound,type="l", ylab="Approximate Objective",
     main="Convergence")

@@ -9,7 +9,7 @@
 # For Interaction: we just want the subset.
 # In each case, c.k will be a vocab length vector.
 
-estKappa <- function(beta.ss, kappa, settings) {
+jeffreysKappa <- function(beta.ss, kappa, settings) {
   verbose <- settings$verbose
   # Step 1: Precalulating some marginalizations
   if(length(beta.ss)==1) {
@@ -45,8 +45,8 @@ estKappa <- function(beta.ss, kappa, settings) {
   }
 
   # Step 3: Construct Beta and Return 
-  logbeta <- lapply(kappa$kappasum, function(x) x - row.lse(x))
-  return(list(logbeta=logbeta, kappa=kappa))
+  beta <- lapply(kappa$kappasum, function(x) exp(x - row.lse(x)))
+  return(list(beta=beta, kappa=kappa))
 }
 
 
