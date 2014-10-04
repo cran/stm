@@ -1,4 +1,4 @@
-8cb64c8eacf9dab2b0d6aa088a8b0852 *DESCRIPTION
+6b6d4b6cc43f3f86a88e86c0c388e1f2 *DESCRIPTION
 1d7aefb0708d48f44159ff25390ae1b4 *LICENSE
 1b5221c9b2721dec783f55445ac9b08a *NAMESPACE
 3d0b11a59ac213d889440c11313ab252 *R/STMconvergence.R
@@ -44,7 +44,7 @@ d62a8435263d3cf9e9273802e94704fd *R/semanticCoherence.R
 9a009951519864a6f31dff9b829bd8ca *R/stm.control.R
 11931d2b882aaef67177065ff4a5539e *R/summary.STM.R
 01a2355b84db23dcfb51c3cddad1e171 *R/tau.R
-3677f401034b15f10f4d2f227bec645a *R/textProcessor.R
+b179484d5e24e401ca92e901c0eba96b *R/textProcessor.R
 6a15c1cf920f5fb5e57bfa2de27f2529 *R/thetaPosterior.R
 5bfe4819f30d53476f2003970a25ce27 *R/topicCorr.R
 d5f126e480cbec9236f250662203c5e7 *R/topicQuality.R
@@ -56,10 +56,10 @@ ae3221bf79e81e0f12ef5a966165a22a *data/gadarian.RData
 f406dd45ed9037f370c8690b29a220f1 *data/gadarianFit.RData
 e7495ee6184db85af61ff29fe411d8a3 *data/poliblog5k.RData
 c519b29abd01bb0f0e08d1c8b2da52bd *inst/CITATION
-44cf6980e28aabfa2a9cc0782b1d14bd *inst/NEWS.Rd
+91075cd70fb79922ed612d990c42d419 *inst/NEWS.Rd
 937bb5c3686de4c1fbe4c7f020bd40fa *inst/doc/stmVignette.R
 6439eaea4ab11fa5b7a8b7fcee5a7d91 *inst/doc/stmVignette.Rnw
-ed51a566ccebcbe05177c37357e81de1 *inst/doc/stmVignette.pdf
+18fe45ba7204f2ac280d236648530608 *inst/doc/stmVignette.pdf
 25043ff3031567f95b1c7dc4f550d14a *man/checkBeta.rd
 5919887d307680329a7a1ecfb993581c *man/checkResiduals.Rd
 0947e10b267538192842421c6db904c9 *man/cloud.Rd

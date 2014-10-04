@@ -67,7 +67,11 @@ textProcessor <- function(documents, metadata=NULL,
   
   if(!is.null(metadata)) {
     for(i in 1:ncol(metadata)) {
-     NLP::meta(txt, colnames(metadata)[i]) <- metadata[,i]
+     if(packageVersion("tm") >= "0.6") {   
+       NLP::meta(txt, colnames(metadata)[i]) <- metadata[,i]
+     } else {
+       tm::meta(txt, colnames(metadata)[i]) <- metadata[,i]
+     }
     }
   }
   
@@ -89,7 +93,11 @@ textProcessor <- function(documents, metadata=NULL,
   #If there is metadata we need to remove some documents
   if(!is.null(metadata)) {
     docindex <- unique(dtm$i)
-    metadata <- NLP::meta(txt)[docindex,]
+    if(packageVersion("tm") >= "0.6") {
+      metadata <- NLP::meta(txt)[docindex,]
+    } else {
+      metadata <- tm::meta(txt)[docindex,]
+    }
   }
   out <- read.slam(dtm) #using the read.slam() function in stm to convert
   vocab <- as.character(out$vocab)
