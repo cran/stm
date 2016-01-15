@@ -1,6 +1,26 @@
 \name{NEWS}
 \title{NEWS file for the stm package}
-\section{Version 1.1}{
+\section{Version 1.1.3}{
+\itemize{
+\item Fixed the unexported findTopic()
+\item Improved some documentation
+\item Small finetuning in toLDAViz
+}
+}
+\section{Version 1.1.2}{
+\itemize{
+\item Fixed a small bug that caused readCorpus to fail on dense document term matrices
+\item Fixed a small bug in the random projections algorithm
+\item Improved warnings in stm when restarting models (Hat tip to Andrew Goldstone)
+\item Added the convertCorpus function for converting stm to other formats. 
+\item Formatting changes to the vignette
+}
+}
+\section{Version 1.1.1}{
+\itemize{
+\item Updated Vignette
+}}
+\section{Version 1.1.0}{
 \itemize{
 \item Performance improvements via various optimizations including porting some components to C++
 \item Various new experimental features including K=0
