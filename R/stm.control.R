@@ -2,7 +2,7 @@
 #compared to the original we have more initializations, 
 # more explicit options, trimmed fat, memoization
 
-stm.control <- function(documents, vocab, settings, model) {
+stm.control <- function(documents, vocab, settings, model=NULL) {
   
   globaltime <- proc.time()
   verbose <- settings$verbose
@@ -104,7 +104,8 @@ stm.control <- function(documents, vocab, settings, model) {
           }
           # Now do the updates themselves
           mu <- opt.mu(lambda=lambda, mode=settings$gamma$mode, 
-                       covar=settings$covariates$X, settings$gamma$enet)
+                       covar=settings$covariates$X, enet=settings$gamma$enet, ic.k=settings$gamma$ic.k,
+                       maxits=settings$gamma$maxits)
           sigma <- opt.sigma(nu=sigma.ss, lambda=lambda, 
                              mu=mu$mu, sigprior=settings$sigma$prior)
           beta <- opt.beta(beta.ss, beta$kappa, settings)
@@ -138,7 +139,8 @@ stm.control <- function(documents, vocab, settings, model) {
       bound.ss <- suffstats$bound
       #do the m-step
       mu <- opt.mu(lambda=lambda, mode=settings$gamma$mode, 
-                   covar=settings$covariates$X, settings$gamma$enet)
+                   covar=settings$covariates$X, enet=settings$gamma$enet, ic.k=settings$gamma$ic.k,
+                   maxits=settings$gamma$maxits)
       sigma <- opt.sigma(nu=sigma.ss, lambda=lambda, 
                          mu=mu$mu, sigprior=settings$sigma$prior)
       beta <- opt.beta(beta.ss, beta$kappa, settings)
@@ -165,7 +167,7 @@ stm.control <- function(documents, vocab, settings, model) {
   #convert the beta back to log-space
   beta$logbeta <- beta$beta
   for(i in 1:length(beta$logbeta)) {
-    beta$logbeta[[i]] <- log(beta$logbeta[[i]])
+    beta$logbeta[[i]] <- safelog(beta$logbeta[[i]])
   }
   beta$beta <- NULL
   lambda <- cbind(lambda,0)
