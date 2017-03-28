@@ -1,8 +1,8 @@
 Package: stm
 Type: Package
 Title: Estimation of the Structural Topic Model
-Version: 1.2.1
-Date: 2017-03-06
+Version: 1.2.2
+Date: 2017-03-28
 Author: Margaret Roberts [aut, cre], 
         Brandon Stewart [aut, cre],
         Dustin Tingley [aut, cre],
@@ -25,6 +25,6 @@ URL: http://structuraltopicmodel.com
 BugReports: https://github.com/bstewart/stm/issues
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
-Packaged: 2017-03-07 00:07:14 UTC; bms4
+Packaged: 2017-03-28 20:22:10 UTC; bms4
 Repository: CRAN
-Date/Publication: 2017-03-07 01:27:49
+Date/Publication: 2017-03-28 21:10:28 UTC

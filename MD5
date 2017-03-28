@@ -1,4 +1,4 @@
-358db53705b5b42cd100d9d328bd2313 *DESCRIPTION
+e51dca6f382e91a69c95779985ffa484 *DESCRIPTION
 4f72fc91c168ba96c5402f5ae3664580 *LICENSE
 43dbef98d69ac381a16be045958e635d *NAMESPACE
 c4346a180f1ae56930ac615852728217 *R/RcppExports.R
@@ -27,8 +27,8 @@ a640bd4d71bf94eba2c403a3b0313b2d *R/makeDesignMatrix.R
 f2d635149475f20b630a1253afb4b373 *R/manyTopics.R
 57c0fc5669e88cc03225fd59c104a25a *R/multiSTM.R
 1da14efdecc311931c29f04252691987 *R/permute.R
-8c9d283f5eb53f80917224eaac77568f *R/plot.STM.R
-3085de1b28797de23518f578c99f56e0 *R/plot.estimateEffect.R
+a9fba5279131b4d08556ce1cdc7d749d *R/plot.STM.R
+2203a6790eab1fbce40860028199d51d *R/plot.estimateEffect.R
 32885e43482d419339a5113278520453 *R/plot.searchK.R
 439e4725da25e59ff9216f4c639be832 *R/plotModels.R
 e805fe11952114b5b7f00c41529e05e6 *R/plotQuote.R
@@ -36,7 +36,7 @@ b11f11c96f2f993ffcb05b985ad45003 *R/plotRemoved.R
 c3b89a882319254e3b53d9c59c4b9d8c *R/plotTopicLoess.R
 bb4bbc401bb0ad411a84865140c17740 *R/plottingutilfns.R
 af2825e1599b9820ed3e19628f229783 *R/prepDocuments.R
-318ff0afa5c52505a80c5c630ad7c077 *R/produce_cmatrix.R
+8b149c27789fe2c5d41aa40403120c09 *R/produce_cmatrix.R
 b138a7834df8bd2ff880424d2b7732ea *R/readCorpus.R
 3b911e399b1d860f35668fae8e667dec *R/residuals.R
 8762607ffaf5136784845b54fa3fa592 *R/s.R
@@ -47,7 +47,7 @@ f01e67dccd7a89e38394c52caa779a5b *R/semanticCoherence.R
 e52cc2f9dd0962bea9a27c39e4bd8fbe *R/simBetas.R
 c7fbf196e65830472166938b756afecd *R/spectral.R
 a25d7833c2049962c6b77089754e7d24 *R/stm-package.R
-3c37b25ee58aacdc630f6f1b52ce2014 *R/stm.R
+6c084096da2393643625cd2e1f2561fa *R/stm.R
 81c27dab70addcf4a00d0e4c2f9ace67 *R/stm.control.R
 e80c4380f056afb4c1a59108c3a9676a *R/summary.STM.R
 7a205de0614f5818f00aba52e73c81cb *R/tau.R
@@ -65,10 +65,10 @@ e0549c8f45969c01c4aaa6f6a2f28778 *data/datalist
 028652aa5055429a684238498b945e4b *data/gadarianFit.RData
 9be77eb346326d6b6081fe5e8f45c768 *data/poliblog5k.RData
 615eb409af02390238d48de024e89f86 *inst/CITATION
-b418226ed6fb12a74e924f051af6a9a9 *inst/NEWS.Rd
+0e9d3681fe74b0448b2121c0a83c1019 *inst/NEWS.Rd
 75a6d5087be38361f70183b129b985f5 *inst/doc/stmVignette.R
 23480a193f341ad1443c8b112ce2e5ae *inst/doc/stmVignette.Rnw
-2e1f642f8893eae65068173545043f73 *inst/doc/stmVignette.pdf
+05ed51edd0b785e1400ff24879ac93dd *inst/doc/stmVignette.pdf
 086648e96a93816940881ab51037da64 *man/calcfrex.Rd
 713d9a656d84630cd1e6f7ea001da3f4 *man/calclift.Rd
 3e8bfafb5a93087db3181cc1f74eb6c1 *man/calcscore.Rd
@@ -94,7 +94,7 @@ da41c627684376421b8515ccc5d16e66 *man/multiSTM.Rd
 a51b5082a97877e3f08d1fd4341dcac4 *man/plot.MultimodDiagnostic.Rd
 79a3d5d906d503c8411535de0e30508a *man/plot.STM.Rd
 8661e8079dd877670211565007f996df *man/plot.STMpermute.Rd
-200397953d1f199ad3a15be54752dc32 *man/plot.estimateEffect.Rd
+5ce715dee2fa6d9d7b6855ea3da20d54 *man/plot.estimateEffect.Rd
 e4031c5caabb2543f38dbfd0234ac168 *man/plot.searchK.Rd
 9b3009e212aa56788426b2f5eff216e2 *man/plot.topicCorr.Rd
 e92eff97f05219615443cd458db0ec93 *man/plotModels.Rd
