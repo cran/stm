@@ -10,11 +10,11 @@ including document-level metadata within mixed-membership topic models. To
 read the vignette use \code{vignette('stmVignette')}.
 }
 \details{
-Functions to ingest and manipulate documents: \code{\link{textProcessor}}
+Functions to manipulate documents: \code{\link{textProcessor}}
 \code{\link{readCorpus}} \code{\link{prepDocuments}}
 
 Functions to fit the model: \code{\link{stm}} \code{\link{selectModel}}
-\code{\link{manyTopics}}
+\code{\link{manyTopics}} \code{\link{searchK}}
 
 Functions to summarize a model: \code{\link{labelTopics}}
 \code{\link{summary.STM}} \code{\link{findThoughts}}
@@ -29,11 +29,6 @@ Plotting Functions: \code{\link{plot.STM}} \code{\link{plot.estimateEffect}}
 
 Pre-Fit Models and Data: \code{\link{gadarian}} \code{\link{gadarianFit}}
 \code{\link{poliblog5k}}
-}
-\author{
-Author: Margaret E. Roberts, Brandon M. Stewart and Dustin Tingley
-
-Maintainer: Brandon Stewart <bms4@princeton.edu>
 }
 \references{
 Roberts, M., Stewart, B., Tingley, D., and Airoldi, E. (2013)
@@ -51,5 +46,9 @@ Additional papers at: structuraltopicmodel.com
 \seealso{
 \code{\link{stm}}
 }
-\keyword{package}
+\author{
+Author: Margaret E. Roberts, Brandon M. Stewart and Dustin Tingley
 
+Maintainer: Brandon Stewart <bms4@princeton.edu>
+}
+\keyword{package}

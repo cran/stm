@@ -52,3 +52,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"stm_lhoodcpp", (DL_FUNC) &stm_lhoodcpp, 5},
+    {"stm_gradcpp", (DL_FUNC) &stm_gradcpp, 5},
+    {"stm_hpbcpp", (DL_FUNC) &stm_hpbcpp, 6},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_stm(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

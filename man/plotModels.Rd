@@ -6,7 +6,8 @@
 outputted from selectModel.}
 \usage{
 plotModels(models, xlab = "Semantic Coherence", ylab = "Exclusivity",
-  labels = 1:length(models$runout), ...)
+  labels = 1:length(models$runout), pch = NULL,
+  legend.position = "topleft", ...)
 }
 \arguments{
 \item{models}{Output from selectModel.}
@@ -17,6 +18,12 @@ coherence.}
 \item{ylab}{Character string that is y axis title. This will be exclusivity.}
 
 \item{labels}{Labels for each model.}
+
+\item{pch}{A vector of integers specifying symbol for plotting.}
+
+\item{legend.position}{The location of the legend.  Can be \code{"bottomright", 
+"bottom", "bottomleft", "left", "topleft", "top", "topright", "right"} and 
+\code{"center"}.}
 
 \item{...}{Other plotting parameters.}
 }
@@ -39,4 +46,3 @@ user should check to make sure that sparsity is high enough (typically
 greater than .5), and then should select a model based on semantic
 coherence.
 }
-

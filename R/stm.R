@@ -100,7 +100,13 @@
 #' variational inference in Hughes and Sudderth (2013), can lead to more rapid
 #' convergence when the number of documents is large.  Note that the memory
 #' requirements scale linearly with the number of groups so this provides a
-#' tradeoff between memory efficiency and computational power.
+#' tradeoff between memory efficiency and speed.  The claim of speed here
+#' is based on the idea that increasing the number of global updates should
+#' help the model find a solution in fewer passes through the document set.
+#' However, itt is worth noting that for any particular case the model need 
+#' not converge faster and definitely won't converge to the same location. 
+#' This functionality should be considered somewhat experimental and we encourage
+#'  users to let us know what their experiences are like here in practice.
 #' 
 #' Models can now be restarted by passing an \code{STM} object to the argument
 #' \code{model}.  This is particularly useful if you run a model to the maximum
@@ -108,6 +114,9 @@
 #' arguments still need to be passed to the object (including any formulas, the
 #' number of topics, etc.).  Be sure to change the \code{max.em.its} argument
 #' or it will simply complete one additional iteration and stop.
+#' 
+#' You can pass a custom initialization of the beta model parameters to \code{stm}.
+#'   
 #' 
 #' The \code{control} argument is a list with named components which can be
 #' used to specify numerous additional computational details.  Valid components
@@ -200,14 +209,34 @@
 #' number of words to be used in the initialization.  It uses the most frequent words
 #' first and then they are reintroduced following initialization.  This allows spectral
 #' to be used with a large V.}
+#' \item{\code{allow.neg.change}}{A logical indicating whether the algorithm is allowed
+#' to declare convergence when the change in the bound has become negative. 
+#' Defaults to \code{TRUE}.  Set to \code{FALSE} to keep the algorithm from converging
+#'  when the bound change is negative.  NB: because this is 
+#' only an approximation to the lower-bound the change can be negative at times.  Right
+#' now this triggers convergence but the final approximate bound might go higher if you
+#' are willing to wait it out. The logic of the default setting is that a negative change
+#' in the bound usually means it is barely moving at all.}
+#' \item{\code{custom.beta}}{If \code{init.type="Custom"} you can pass your own initialization
+#' of the topic-word distributions beta to use as an initialization.  Please note that this takes
+#' some care to be sure that it is provided in exactly the right format.  The number of topics and
+#' vocab must match exactly.  The vocab must be in the same order.  The values must not be pathological
+#' (for instance setting the probability of a single word to be 0 under all topics). The beta should be
+#' formatted in the same way as the piece of a returned stm model object \code{stmobj$beta$logbeta}.
+#' It should be a list of length the number of levels of the content covariate.  Each element of the list
+#' is a K by V matrix containing the logged word probability conditional on the topic.  If you use this
+#' option we recommend that you use \code{max.em.its=0} with the model initialization set to random, inspect
+#' the returned form of \code{stmobj$beta$logbeta} and ensure that it matches your format.}
 #' }
 #' 
 #' 
 #' @param documents The document term matrix to be modeled. These can be supplied
-#' in the native \pkg{stm} format or a \pkg{quanteda} \link[quanteda]{dfm} (document-feature matrix) 
-#' object.  When using the quanteda format this will include the vocabulary and
-#' optionally the metadata. If using the native list format, the object must be a 
-#' list of with each element corresponding to a document. Each document is represented
+#' in the native \pkg{stm} format, a sparse term count matrix with one row
+#' per document and one column per term, or a
+#' \pkg{quanteda} \link[quanteda]{dfm} (document-feature matrix) object.
+#' When using the sparse matrix or quanteda format this will include the
+#' vocabulary and, for quanteda, optionally the metadata. If using the native list format,
+#' the object must be a list of with each element corresponding to a document. Each document is represented
 #' as an integer matrix with two rows, and columns equal to the number of unique
 #' vocabulary words in the document.  The first row contains the 1-indexed
 #' vocabulary entry and the second row contains the number of times that term
@@ -222,10 +251,10 @@
 #' @param vocab Character vector specifying the words in the corpus in the
 #' order of the vocab indices in documents. Each term in the vocabulary index
 #' must appear at least once in the documents.  See \code{\link{prepDocuments}}
-#' for dropping unused items in the vocabulary.  If \code{documents} is a 
-#' \pkg{quanteda} \link[quanteda]{dfm} object, then \code{vocab} should not
-#'  (and must not) be supplied.  It is contained already inside the \pkg{quanteda}
-#'  dfm.
+#' for dropping unused items in the vocabulary.  If \code{documents} is a
+#' sparse matrix or \pkg{quanteda} \link[quanteda]{dfm} object, then \code{vocab} should not
+#'  (and must not) be supplied.  It is contained already inside the column
+#'  names of the matrix.
 #' @param K Typically a positive integer (of size 2 or greater) representing
 #' the desired number of topics. If \code{init.type="Spectral"} you can also
 #' set \code{K=0} to use the algorithm of Lee and Mimno (2014) to set the
@@ -242,18 +271,23 @@
 #' @param data an optional data frame containing the prevalence and/or content
 #' covariates.  If unspecified the variables are taken from the active
 #' environment.
-#' @param init.type The method of initialization.  Must be either Latent
-#' Dirichlet Allocation ("LDA"), "Random" or "Spectral".  See details for more
-#' info. If you want to replicate a previous result, see the argument.
-#' \code{seed}.
+#' @param init.type The method of initialization, by default the spectral initialization.  
+#' Must be either Latent
+#' Dirichlet Allocation ("LDA"), "Random", "Spectral" or "Custom".  See details for more
+#' info. If you want to replicate a previous result, see the argument
+#' \code{seed}.  For "Custom" see the format described below under the \code{custom.beta}
+#' option of the \code{control} parameters.
 #' @param seed Seed for the random number generator. \code{stm} saves the seed
 #' it uses on every run so that any result can be exactly reproduced.  When
 #' attempting to reproduce a result with that seed, it should be specified
 #' here.
 #' @param max.em.its The maximum number of EM iterations.  If convergence has
-#' not been met at this point, a message will be printed.
+#' not been met at this point, a message will be printed.  If you set this to 
+#' 0 it will return the initialization.
 #' @param emtol Convergence tolerance.  EM stops when the relative change in
-#' the approximate bound drops below this level.  Defaults to .00001.
+#' the approximate bound drops below this level.  Defaults to .00001.  You 
+#' can set it to 0 to have the algorithm run \code{max.em.its} number of steps.
+#' See advanced options under \code{control} for more options.
 #' @param verbose A logical flag indicating whether information should be
 #' printed to the screen.  During the E-step (iteration over documents) a dot
 #' will print each time 1\% of the documents are completed.  At the end of each
@@ -286,8 +320,7 @@
 #' is \code{Jeffreys} which is markedly less computationally efficient but is
 #' included for backwards compatability. See details for more information on
 #' computation.
-#' @param control a list of additional parameters control portions of the
-#' optimization.  See details.
+#' @param control a list of additional advanced parameters. See details.
 #' 
 #' @return An object of class STM 
 #' 
@@ -356,78 +389,25 @@
 #'                 data=out$meta, model=mod.out, max.em.its=10)
 #' }
 #' @export
-stm <- function(documents, vocab, K, 
+stm <- function(documents, vocab, K,
                 prevalence=NULL, content=NULL, data=NULL,
-                init.type=c("LDA", "Random", "Spectral"), seed=NULL, 
+                init.type=c("Spectral", "LDA", "Random", "Custom"), seed=NULL,
                 max.em.its=500, emtol=1e-5,
-                verbose=TRUE, reportevery=5,   
-                LDAbeta=TRUE, interactions=TRUE, 
+                verbose=TRUE, reportevery=5,
+                LDAbeta=TRUE, interactions=TRUE,
                 ngroups=1, model=NULL,
                 gamma.prior=c("Pooled", "L1"), sigma.prior=0,
-                kappa.prior=c("L1", "Jeffreys"), control=list()) {
-  UseMethod("stm")
-}
-
-#' @method stm dfm
-#' @export
-#' @keywords internal
-stm.dfm <- function(documents, vocab, K, 
-                    prevalence=NULL, content=NULL, data=NULL,
-                    init.type=c("LDA", "Random", "Spectral"), seed=NULL, 
-                    max.em.its=500, emtol=1e-5,
-                    verbose=TRUE, reportevery=5,   
-                    LDAbeta=TRUE, interactions=TRUE, 
-                    ngroups=1, model=NULL,
-                    gamma.prior=c("Pooled", "L1"), sigma.prior=0,
-                    kappa.prior=c("L1", "Jeffreys"), control=list())  {
-  if (!missing(vocab)) {
-    # in case K was not specified by name, and it was confused with the
-    # vocab argument (missing for dfm inputs)
-    if (is.numeric(vocab) & length(vocab)==1) {
-      stop("incorrect argument type for vocab, did you mean to specify K = ", vocab, "?")
-    } else {
-      stop("if documents is a dfm, do not specify vocab separately")
-    }
-  }
-  
-  # convert the dfm input as the first argument into the structure of the
-  # older function where this is split into a list
-  dfm_stm <- quanteda::convert(documents, to = "stm", docvars = data)
-  if(is.null(data)) data <- dfm_stm[["meta"]]
-  
-  out <- stm(documents = dfm_stm[["documents"]], 
-            vocab = dfm_stm[["vocab"]], 
-            K = K, 
-            prevalence = prevalence, content = content, 
-            data = dfm_stm[["meta"]],
-            init.type = init.type, 
-            max.em.its = max.em.its, emtol = emtol,
-            verbose = verbose, reportevery = reportevery,   
-            LDAbeta = LDAbeta, interactions = interactions, 
-            ngroups = ngroups, model = model,
-            gamma.prior = gamma.prior, sigma.prior = sigma.prior,
-            kappa.prior = kappa.prior, control = control)
-  #need to update the call so it looks like the user's original call
-  out$settings$call <- match.call()
-  return(out)
-}
-
-#' @method stm list
-#' @export
-#' @keywords internal
-stm.list <- function(documents, vocab, K, 
-                     prevalence=NULL, content=NULL, data=NULL,
-                     init.type=c("LDA", "Random", "Spectral"), seed=NULL, 
-                     max.em.its=500, emtol=1e-5,
-                     verbose=TRUE, reportevery=5,   
-                     LDAbeta=TRUE, interactions=TRUE, 
-                     ngroups=1, model=NULL,
-                     gamma.prior=c("Pooled", "L1"), sigma.prior=0,
-                     kappa.prior=c("L1", "Jeffreys"), control=list())  {
+                kappa.prior=c("L1", "Jeffreys"), control=list())  {
   
   #Match Arguments and save the call
   init.type <- match.arg(init.type)
   Call <- match.call()
+
+  # Convert the corpus to the internal STM format
+  args <- asSTMCorpus(documents, vocab, data)
+  documents <- args$documents
+  vocab <- args$vocab
+  data <- args$data
   
   #Documents
   if(missing(documents)) stop("Must include documents")
@@ -467,7 +447,7 @@ stm.list <- function(documents, vocab, K,
     if(init.type!="Spectral") stop("Topic selection method can only be used with init.type='Spectral'")
   }
   #Iterations, Verbose etc.
-  if(!(length(max.em.its)==1 & posint(max.em.its))) stop("Max EM iterations must be a single positive integer")
+  if(!(length(max.em.its)==1 & nonnegint(max.em.its))) stop("Max EM iterations must be a single non-negative integer")
   if(!is.logical(verbose)) stop("verbose must be a logical.")
   
   ##
@@ -559,7 +539,8 @@ stm.list <- function(documents, vocab, K,
                             V=V, N=N, wcounts=wcounts),
                    verbose=verbose,
                    topicreportevery=reportevery,
-                   convergence=list(max.em.its=max.em.its, em.converge.thresh=emtol),
+                   convergence=list(max.em.its=max.em.its, em.converge.thresh=emtol, 
+                                    allow.neg.change=TRUE),
                    covariates=list(X=xmat, betaindex=betaindex, yvarlevels=yvarlevels, formula=prevalence),
                    gamma=list(mode=match.arg(gamma.prior), prior=NULL, enet=1, ic.k=2,
                               maxits=1000),
@@ -611,7 +592,8 @@ stm.list <- function(documents, vocab, K,
                   "gamma.ic.k",
                   "nits", "burnin", "alpha", "eta", "contrast",
                   "rp.s", "rp.p", "rp.d.group.size", "SpectralRP",
-                  "recoverEG", "maxV", "gamma.maxits")
+                  "recoverEG", "maxV", "gamma.maxits", "allow.neg.change",
+                  "custom.beta")
   if (length(control)) {
     indx <- pmatch(names(control), legalargs, nomatch=0L)
     if (any(indx==0L))
@@ -638,13 +620,21 @@ stm.list <- function(documents, vocab, K,
       if(i=="rp.s")  settings$init$s <- control[[i]]
       if(i=="rp.p")  settings$init$p <- control[[i]]
       if(i=="rp.d.group.size")  settings$init$d.group.size <- control[[i]]
-      if(i=="SpectralRP" & control[[i]]) settings$init$mode <- "SpectralRP" #override to allow spectral rp mode
-      if(i=="recoverEG" & control[[i]]) settings$init$recoverEG <- control[[i]]
-      if(i=="maxV" & control[[i]]) {
+      if(i=="SpectralRP" && control[[i]]) settings$init$mode <- "SpectralRP" #override to allow spectral rp mode
+      if(i=="recoverEG" && !control[[i]]) settings$init$recoverEG <- control[[i]]
+      if(i=="maxV" && control[[i]]) {
         settings$init$maxV <- control[[i]]
         if(settings$init$maxV > V) stop("maxV cannot be larger than the vocabulary")
       }
       if(i=="gamma.maxits") settings$gamma$maxits <- control[[i]]
+      if(i=="allow.neg.change") settings$convergence$allow.neg.change <- control[[i]]
+      if(i=="custom.beta") {
+        if(settings$init$mode!="Custom") {
+          warning("Custom beta supplied, setting init argument to Custom.")
+          settings$init$mode <- "Custom"
+        }
+        settings$init$custom <- control[[i]]
+      }
     }
   }
   

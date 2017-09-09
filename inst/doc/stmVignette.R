@@ -1,26 +1,26 @@
 ### R code from vignette source 'stmVignette.Rnw'
 
 ###################################################
-### code chunk number 1: stmVignette.Rnw:73-74
+### code chunk number 1: stmVignette.Rnw:72-73
 ###################################################
 options(prompt = "R> ", continue = "+", width = 70, useFancyQuotes = FALSE)
 
 
 ###################################################
-### code chunk number 2: stmVignette.Rnw:143-145
+### code chunk number 2: stmVignette.Rnw:144-146
 ###################################################
 library("stm")
 set.seed(2138)
 
 
 ###################################################
-### code chunk number 3: stmVignette.Rnw:154-155
+### code chunk number 3: stmVignette.Rnw:155-156
 ###################################################
 list(poliblog5k.docs[[1]][,1:5], poliblog5k.docs[[2]][,1:3])
 
 
 ###################################################
-### code chunk number 4: stmVignette.Rnw:167-173 (eval = FALSE)
+### code chunk number 4: stmVignette.Rnw:168-174 (eval = FALSE)
 ###################################################
 ## data <- read.csv("poliblogs2008.csv")
 ## processed <- textProcessor(data$documents, metadata = data)
@@ -31,7 +31,7 @@ list(poliblog5k.docs[[1]][,1:5], poliblog5k.docs[[2]][,1:3])
 
 
 ###################################################
-### code chunk number 5: stmVignette.Rnw:197-200 (eval = FALSE)
+### code chunk number 5: stmVignette.Rnw:199-202 (eval = FALSE)
 ###################################################
 ## plotRemoved(processed$documents, lower.thresh = seq(1, 200, by = 100))
 ## out <- prepDocuments(processed$documents, processed$vocab,
@@ -39,7 +39,7 @@ list(poliblog5k.docs[[1]][,1:5], poliblog5k.docs[[2]][,1:3])
 
 
 ###################################################
-### code chunk number 6: stmVignette.Rnw:225-229 (eval = FALSE)
+### code chunk number 6: stmVignette.Rnw:227-231 (eval = FALSE)
 ###################################################
 ## poliblogPrevFit <- stm(documents = out$documents, vocab = out$vocab, 
 ##                        K = 20, prevalence =~ rating + s(day), 
@@ -48,13 +48,13 @@ list(poliblog5k.docs[[1]][,1:5], poliblog5k.docs[[2]][,1:3])
 
 
 ###################################################
-### code chunk number 7: stmVignette.Rnw:234-235
+### code chunk number 7: stmVignette.Rnw:236-237
 ###################################################
 load(url("http://goo.gl/VPdxlS"))
 
 
 ###################################################
-### code chunk number 8: stmVignette.Rnw:251-254 (eval = FALSE)
+### code chunk number 8: stmVignette.Rnw:253-256 (eval = FALSE)
 ###################################################
 ## poliblogSelect <- selectModel(out$documents, out$vocab, K = 20,
 ##   prevalence =~ rating + s(day), max.em.its = 75,
@@ -62,32 +62,32 @@ load(url("http://goo.gl/VPdxlS"))
 
 
 ###################################################
-### code chunk number 9: stmVignette.Rnw:272-273
+### code chunk number 9: stmVignette.Rnw:274-275
 ###################################################
-plotModels(poliblogSelect)
+plotModels(poliblogSelect, pch=c(1,2,3,4), legend.position="bottomright")
 
 
 ###################################################
-### code chunk number 10: stmVignette.Rnw:282-283 (eval = FALSE)
+### code chunk number 10: stmVignette.Rnw:284-285 (eval = FALSE)
 ###################################################
 ## selectedmodel <- poliblogSelect$runout[[3]] 
 
 
 ###################################################
-### code chunk number 11: stmVignette.Rnw:293-295 (eval = FALSE)
+### code chunk number 11: stmVignette.Rnw:295-297 (eval = FALSE)
 ###################################################
 ## storage <- searchK(out$documents, out$vocab, K = c(7, 10),
 ##   prevalence =~ rating + s(day), data = meta)
 
 
 ###################################################
-### code chunk number 12: stmVignette.Rnw:318-319
+### code chunk number 12: stmVignette.Rnw:320-321
 ###################################################
 labelTopics(poliblogPrevFit, c(3, 7, 20))
 
 
 ###################################################
-### code chunk number 13: stmVignette.Rnw:328-332
+### code chunk number 13: stmVignette.Rnw:330-334
 ###################################################
 thoughts3 <- findThoughts(poliblogPrevFit, texts = shortdoc,
   n = 2, topics = 3)$docs[[1]]
@@ -96,7 +96,7 @@ thoughts20 <- findThoughts(poliblogPrevFit, texts = shortdoc,
 
 
 ###################################################
-### code chunk number 14: stmVignette.Rnw:336-342
+### code chunk number 14: stmVignette.Rnw:338-344
 ###################################################
 thoughts3 <-
   c("Here's video of the ad we reported on below that the Obama campaign is running in Ohio responding to the earlier Swift-Boating spot tying Obama to former Weatherman Bill Ayers... With all our pr",
@@ -107,7 +107,7 @@ thoughts20 <-
 
 
 ###################################################
-### code chunk number 15: stmVignette.Rnw:348-351
+### code chunk number 15: stmVignette.Rnw:350-353
 ###################################################
 par(mfrow = c(1, 2),mar = c(.5, .5, 1, .5))
 plotQuote(thoughts3, width = 30, main = "Topic 3")
@@ -115,21 +115,22 @@ plotQuote(thoughts20, width = 30, main = "Topic 20")
 
 
 ###################################################
-### code chunk number 16: stmVignette.Rnw:369-372
+### code chunk number 16: stmVignette.Rnw:371-375
 ###################################################
 out$meta$rating <- as.factor(out$meta$rating)
 prep <- estimateEffect(1:20 ~ rating + s(day), poliblogPrevFit,
   meta = out$meta, uncertainty = "Global")
+summary(prep, topics=1)
 
 
 ###################################################
-### code chunk number 17: stmVignette.Rnw:386-387
+### code chunk number 17: stmVignette.Rnw:389-390
 ###################################################
 plot(poliblogPrevFit, type = "summary", xlim = c(0, .3))
 
 
 ###################################################
-### code chunk number 18: stmVignette.Rnw:409-416
+### code chunk number 18: stmVignette.Rnw:412-419
 ###################################################
 plot(prep, covariate = "rating", topics = c(3, 7, 20),
   model = poliblogPrevFit, method = "difference",
@@ -141,7 +142,7 @@ plot(prep, covariate = "rating", topics = c(3, 7, 20),
 
 
 ###################################################
-### code chunk number 19: stmVignette.Rnw:431-438
+### code chunk number 19: stmVignette.Rnw:434-441
 ###################################################
 plot(prep, "day", method = "continuous", topics = 7,
   model = z, printlegend = FALSE, xaxt = "n", xlab = "Time (2008)")
@@ -153,7 +154,7 @@ axis(1,at = as.numeric(monthseq) - min(as.numeric(monthseq)),
 
 
 ###################################################
-### code chunk number 20: stmVignette.Rnw:450-453 (eval = FALSE)
+### code chunk number 20: stmVignette.Rnw:453-456 (eval = FALSE)
 ###################################################
 ## poliblogContent <- stm(out$documents, out$vocab, K = 20,
 ##   prevalence =~ rating + s(day), content =~ rating,
@@ -161,19 +162,19 @@ axis(1,at = as.numeric(monthseq) - min(as.numeric(monthseq)),
 
 
 ###################################################
-### code chunk number 21: stmVignette.Rnw:461-462
+### code chunk number 21: stmVignette.Rnw:464-465
 ###################################################
 plot(poliblogContent, type = "perspectives", topics = 11)
 
 
 ###################################################
-### code chunk number 22: stmVignette.Rnw:473-474
+### code chunk number 22: stmVignette.Rnw:476-477
 ###################################################
 plot(poliblogPrevFit, type = "perspectives", topics = c(12, 20))
 
 
 ###################################################
-### code chunk number 23: stmVignette.Rnw:487-490 (eval = FALSE)
+### code chunk number 23: stmVignette.Rnw:490-493 (eval = FALSE)
 ###################################################
 ## poliblogInteraction <- stm(out$documents, out$vocab, K = 20,
 ##   prevalence =~ rating * day, max.em.its = 75,
@@ -181,7 +182,7 @@ plot(poliblogPrevFit, type = "perspectives", topics = c(12, 20))
 
 
 ###################################################
-### code chunk number 24: stmVignette.Rnw:497-511
+### code chunk number 24: stmVignette.Rnw:500-514
 ###################################################
 prep <- estimateEffect(c(20) ~ rating * day, poliblogInteraction,
   metadata = out$meta, uncertainty = "None")
@@ -200,25 +201,25 @@ legend(0, .08, c("Liberal", "Conservative"),
 
 
 ###################################################
-### code chunk number 25: stmVignette.Rnw:528-529
+### code chunk number 25: stmVignette.Rnw:531-532
 ###################################################
 cloud(poliblogPrevFit, topic = 7, scale = c(2,.25))
 
 
 ###################################################
-### code chunk number 26: stmVignette.Rnw:540-541
+### code chunk number 26: stmVignette.Rnw:543-544
 ###################################################
 mod.out.corr <- topicCorr(poliblogPrevFit)
 
 
 ###################################################
-### code chunk number 27: stmVignette.Rnw:547-548
+### code chunk number 27: stmVignette.Rnw:550-551
 ###################################################
 plot(mod.out.corr)
 
 
 ###################################################
-### code chunk number 28: stmVignette.Rnw:592-595
+### code chunk number 28: stmVignette.Rnw:595-598
 ###################################################
 plot(poliblogPrevFit$convergence$bound, type = "l",
   ylab = "Approximate Objective",
@@ -226,20 +227,20 @@ plot(poliblogPrevFit$convergence$bound, type = "l",
 
 
 ###################################################
-### code chunk number 29: stmVignette.Rnw:647-649 (eval = FALSE)
+### code chunk number 29: stmVignette.Rnw:650-652 (eval = FALSE)
 ###################################################
 ## set.seed(2138)
 ## heldout <- make.heldout(poliblog5k.docs, poliblog5k.voc)
 
 
 ###################################################
-### code chunk number 30: stmVignette.Rnw:654-655 (eval = FALSE)
+### code chunk number 30: stmVignette.Rnw:657-658 (eval = FALSE)
 ###################################################
 ## slam <- convertCorpus(heldout$documents, heldout$vocab, type="slam")
 
 
 ###################################################
-### code chunk number 31: stmVignette.Rnw:659-667 (eval = FALSE)
+### code chunk number 31: stmVignette.Rnw:662-670 (eval = FALSE)
 ###################################################
 ## mod1 <- CTM(slam, k = 100)
 ## control_CTM_VEM <- list(estimate.beta = TRUE, verbose = 1,
@@ -252,7 +253,7 @@ plot(poliblogPrevFit$convergence$bound, type = "l",
 
 
 ###################################################
-### code chunk number 32: stmVignette.Rnw:671-675 (eval = FALSE)
+### code chunk number 32: stmVignette.Rnw:674-678 (eval = FALSE)
 ###################################################
 ## stm.mod1 <- stm(heldout$documents, heldout$vocab, K = 100,
 ##   init.type = "Spectral")
