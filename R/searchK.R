@@ -17,6 +17,16 @@
 #' \item{residual dispersion}{\code{\link{checkResiduals}}}
 #' }
 #' 
+#' Due to the need to calculate the heldout-likelihood \code{N} documents have
+#' \code{proportion} of the documents heldout at random.  This means that even
+#' with the default spectral initialization the results can change from run to run.
+#' When the number of heldout documents is low or documents are very short, this also
+#' means that the results can be quite unstable.  For example: the \code{gadarian} code
+#' demonstration below has heldout results based on only 34 documents and approximately
+#' 150 tokens total.  Clearly this can lead to quite disparate results across runs.  By 
+#' contrast default settings for the \code{poliblog5k} dataset would yield a heldout sample
+#' of 500 documents with approximately 50000 tokens for the heldout sample.  We should expect
+#' this to be substantially more stable.
 #' @param documents The documents to be used for the stm model
 #' @param vocab The vocabulary to be used for the stmmodel
 #' @param K A vector of different topic numbers
@@ -66,36 +76,18 @@ searchK <- function(documents, vocab, K, init.type = "Spectral",
   if( "content" %in% names(list(...)) ) {
     warning("Exclusivity calculation only designed for models without content covariates", call.=FALSE)
   }
-
-  # compute statistics for a particular number of topics k
-  get_statistics <- function(k, ...) { # k = one particular topic number; K = vector of topic numbers
-      out <- NULL # output vector
-      out[['K']] <- k
-      #run stm
-      model <- stm(documents=heldout$documents,vocab=heldout$vocab,
-                   K=k, init.type=init.type, ...)
-      #calculate values to return
-      if( !"content" %in% names(list(...)) ) {  # only calculate exclusivity for models without content covariates
-        out[['exclus']] <- mean(unlist(exclusivity(model, M=M, frexw=.7)))
-        out[['semcoh']] <- mean(unlist(semanticCoherence(model, heldout$documents, M)))
-      } 
-      out[['heldout']] <- eval.heldout(model, heldout$missing)$expected.heldout    
-      out[['residual']] <- checkResiduals(model,heldout$documents)$dispersion
-      out[['bound']] <- max(model$convergence$bound)
-      out[['lbound']] <- max(model$convergence$bound) + lfactorial(model$settings$dim$K)
-      out[['em.its']] <- length(model$convergence$bound)    
-      return(out)
-  }
-
+  
   # single core
   if (cores == 1) {
       g <- list()
       for (i in seq_along(K)) { # loop produces nicer printout than lapply
-          g[[i]] <- get_statistics(K[i], ...)
+          g[[i]] <- get_statistics(K[i], heldout=heldout, init.type=init.type,M=M,...)
       }
   # multi core
   } else {
-      g <- parallel::mclapply(K, get_statistics, mc.cores = cores, ...)
+      cat("Using multiple-cores.  Progress will not be shown. \n")
+      g <- parallel::mclapply(K, get_statistics, mc.cores = cores, heldout=heldout, init.type=init.type,
+                              M=M,...)
   } 
 
   # output
@@ -104,4 +96,24 @@ searchK <- function(documents, vocab, K, init.type = "Spectral",
   toreturn <- list(results=g, call=match.call(expand.dots=TRUE))
   class(toreturn)<- "searchK"
   return(toreturn)
+}
+
+# compute statistics for a particular number of topics k
+get_statistics <- function(k, heldout, init.type, M, ...) { # k = one particular topic number; K = vector of topic numbers
+  out <- NULL # output vector
+  out[['K']] <- k
+  #run stm
+  model <- stm(documents=heldout$documents,vocab=heldout$vocab,
+               K=k, init.type=init.type, ...)
+  #calculate values to return
+  if( !"content" %in% names(list(...)) ) {  # only calculate exclusivity for models without content covariates
+    out[['exclus']] <- mean(unlist(exclusivity(model, M=M, frexw=.7)))
+    out[['semcoh']] <- mean(unlist(semanticCoherence(model, heldout$documents, M)))
+  } 
+  out[['heldout']] <- eval.heldout(model, heldout$missing)$expected.heldout    
+  out[['residual']] <- checkResiduals(model,heldout$documents)$dispersion
+  out[['bound']] <- max(model$convergence$bound)
+  out[['lbound']] <- max(model$convergence$bound) + lfactorial(model$settings$dim$K)
+  out[['em.its']] <- length(model$convergence$bound)    
+  return(out)
 }

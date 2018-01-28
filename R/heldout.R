@@ -9,7 +9,7 @@
 #' example for the basic workflow.
 #' 
 #' @aliases make.heldout eval.heldout
-#' @param documents the documents to be modeled.
+#' @param documents the documents to be modeled (see \code{\link{stm}} for format).
 #' @param vocab the vocabulary item
 #' @param N number of docs to be partially held out
 #' @param proportion proportion of docs to be held out.
@@ -34,6 +34,12 @@
 make.heldout <- function(documents, vocab, N=floor(.1*length(documents)), 
                          proportion=.5, seed=NULL) {
   if(!is.null(seed)) set.seed(seed)
+  
+  # Convert the corpus to the internal STM format
+  args <- asSTMCorpus(documents, vocab)
+  documents <- args$documents
+  vocab <- args$vocab
+
   index <- sort(sample(1:length(documents), N))
   pie <- proportion
   missing <- vector(mode="list", length=N)
@@ -56,7 +62,8 @@ make.heldout <- function(documents, vocab, N=floor(.1*length(documents)),
   indices <- sort(unique(unlist(lapply(documents, function(x) x[1,]))))
 
   #all sorts of nonsense ensues if there is missingness
-  if(length(indices)!=length(vocab)) {
+  #first condition checks the vocab, second checks the documents
+  if(length(indices)!=length(vocab) | any(unlist(lapply(missing$docs, is.null)))) {
     remove <- which(!(1:length(vocab)%in% indices))
     newind <- rep(0, length(vocab))
     newind[indices] <- 1:length(indices)
@@ -81,6 +88,7 @@ make.heldout <- function(documents, vocab, N=floor(.1*length(documents)),
   }
   #hooray.  return some stuff.
   heldout <- list(documents=documents,vocab=vocab, missing=missing)
+
   #you can get cases where these come out as non-integers...
   #recast everything just to be sure.
   heldout$documents <- lapply(heldout$documents, function(x) matrix(as.integer(x), nrow(x), ncol(x)))
@@ -101,7 +109,7 @@ eval.heldout <- function(model, missing) {
     probs <- model$theta[docid,]%*%beta[[bindex[i]]][,words]
     probs <- rep(probs, missing$docs[[i]][2,])
     heldout[i] <- mean(log(probs)) 
-    ntokens[i] <- sum(words)
+    ntokens[i] <- sum(missing$docs[[i]][2,])
   }
   out <- list(expected.heldout=mean(heldout, na.rm=TRUE), doc.heldout=heldout,
               index=missing$index, ntokens=ntokens) #the mean here to deal with 0 length docs
