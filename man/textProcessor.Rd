@@ -8,10 +8,11 @@
 \title{Process a vector of raw texts}
 \usage{
 textProcessor(documents, metadata = NULL, lowercase = TRUE,
-  removestopwords = TRUE, removenumbers = TRUE, removepunctuation = TRUE,
-  stem = TRUE, wordLengths = c(3, Inf), sparselevel = 1,
-  language = "en", verbose = TRUE, onlycharacter = FALSE,
-  striphtml = FALSE, customstopwords = NULL, v1 = FALSE)
+  removestopwords = TRUE, removenumbers = TRUE,
+  removepunctuation = TRUE, ucp = FALSE, stem = TRUE,
+  wordLengths = c(3, Inf), sparselevel = 1, language = "en",
+  verbose = TRUE, onlycharacter = FALSE, striphtml = FALSE,
+  customstopwords = NULL, custompunctuation = NULL, v1 = FALSE)
 }
 \arguments{
 \item{documents}{The documents to be processed.  A character vector where
@@ -36,6 +37,10 @@ languages). Defaults to TRUE.}
 
 \item{removepunctuation}{whether punctuation should be removed.  Defaults to
 TRUE.}
+
+\item{ucp}{When TRUE passes \code{ucp=TRUE} to \code{tm::removePunctuation} which
+removes a more general set of punctuation (the Unicode general category P).  Defaults
+to \code{FALSE}.}
 
 \item{stem}{Whether or not to stem words. Defaults to TRUE}
 
@@ -76,6 +81,19 @@ as with standard stopwords these are removed after converting everything to
 lower case but before removing numbers, punctuation or stemming.  Thus words
 to be removed should be all lower case but otherwise complete.}
 
+\item{custompunctuation}{A character vector containing any characters to be
+removed immediately after standard punctuation removal. This function exists 
+primarily for easy removal of application specific punctuation not caught by
+the punctuation filter (although see also the \code{ucp} argument to turn on
+a stronger punctuation filter). This can in theory be used to remove any 
+characters you don't want in the text for some reason. In practice what this
+function does is collapse the character vector to one string and put square
+brackets around it in order to make a pattern that can be matched and replaced
+with \code{gsub} at the punctuation removal stage.  If the \code{custompunctuation}
+vector is length 1 and the first element is a left square bracket, the function
+assumes that you have passed a regular expression and passes that directly
+along to \code{gsub}.}
+
 \item{v1}{A logical which defaults to \code{FALSE}.  If set to \code{TRUE} it
 will use the ordering of operations we use used in Version 1.0 of the package.}
 }
@@ -109,7 +127,7 @@ infrequently appearing words are removed.  When a term is removed from the
 vocabulary a message will print to the screen (as long as \code{verbose} has
 not been set to \code{FALSE}).  The message indicates the number of terms
 removed (that is, the number of vocabulary entries) as well as the number of
-tokens removed (appearences of individual words).  The function
+tokens removed (appearances of individual words).  The function
 \code{\link{prepDocuments}} provides additional methods to prune infrequent
 words.  In general the functionality there should be preferred.
 
@@ -132,6 +150,13 @@ docs<-out$documents
 vocab<-out$vocab
 meta <-out$meta
 }
+
+#Example of custom punctuation removal.
+docs <- c("co.rr?ec!t")
+textProcessor(docs,custompunctuation=c(".","?","!"),
+              removepunctuation = FALSE)$vocab
+#note that the above should now say "correct"
+ 
 }
 \references{
 Ingo Feinerer and Kurt Hornik (2013). tm: Text Mining Package. R

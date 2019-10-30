@@ -4,11 +4,12 @@
 \alias{plot.STM}
 \title{Functions for plotting STM objects}
 \usage{
-\method{plot}{STM}(x, type = c("summary", "labels", "perspectives", "hist"),
-  n = NULL, topics = NULL, labeltype = c("prob", "frex", "lift", "score"),
-  frexw = 0.5, main = NULL, xlim = NULL, ylim = NULL, xlab = NULL,
-  family = "", width = 80, covarlevels = NULL, plabels = NULL,
-  text.cex = 1, custom.labels = NULL, topic.names = NULL, ...)
+\method{plot}{STM}(x, type = c("summary", "labels", "perspectives",
+  "hist"), n = NULL, topics = NULL, labeltype = c("prob", "frex",
+  "lift", "score"), frexw = 0.5, main = NULL, xlim = NULL,
+  ylim = NULL, xlab = NULL, family = "", width = 80,
+  covarlevels = NULL, plabels = NULL, text.cex = 1,
+  custom.labels = NULL, topic.names = NULL, ...)
 }
 \arguments{
 \item{x}{Model output from stm.}
@@ -28,7 +29,7 @@ topics.}
 \item{labeltype}{Determines which option of \code{"prob", "frex", "lift",
 "score"} is used for choosing the most important words.  See
 \code{\link{labelTopics}} for more detail.  Passing an argument to
-\code{custom.labels} will overide this. Note that this does not apply to
+\code{custom.labels} will override this. Note that this does not apply to
 \code{perspectives} type which always uses highest probability words.}
 
 \item{frexw}{If "frex" labeltype is used, this will be the frex weight.}
@@ -62,7 +63,7 @@ vector of length two which has the left hand side label first.}
 
 \item{topic.names}{A vector of custom topic names.  Defaults to "Topic #: ".}
 
-\item{\dots}{Additional parameters passed to ploting functions.}
+\item{\dots}{Additional parameters passed to plotting functions.}
 }
 \description{
 Produces one of four types of plots for an STM object.  The default option

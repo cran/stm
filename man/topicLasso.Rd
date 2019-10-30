@@ -4,11 +4,12 @@
 \alias{topicLasso}
 \title{Plot predictions using topics}
 \usage{
-topicLasso(formula, data, stmobj = NULL, subset = NULL, omit.var = NULL,
-  family = "gaussian", main = "Topic Effects on Outcome",
-  xlab = expression("Lower Outcome Higher Outcome"), labeltype = c("prob",
-  "frex", "lift", "score"), seed = 2138, xlim = c(-4, 4),
-  standardize = FALSE, nfolds = 20, ...)
+topicLasso(formula, data, stmobj = NULL, subset = NULL,
+  omit.var = NULL, family = "gaussian",
+  main = "Topic Effects on Outcome",
+  xlab = expression("Lower Outcome Higher Outcome"),
+  labeltype = c("prob", "frex", "lift", "score"), seed = 2138,
+  xlim = c(-4, 4), standardize = FALSE, nfolds = 20, ...)
 }
 \arguments{
 \item{formula}{Formula specifying the dependent variable and additional
@@ -35,7 +36,7 @@ explanation there.  Defaults to "gaussian"}
 
 \item{xlab}{Character string giving an x-axis label.}
 
-\item{labeltype}{Type of example words to use in labelling each topic. See
+\item{labeltype}{Type of example words to use in labeling each topic. See
 \code{\link{labelTopics}}. Defaults to "prob".}
 
 \item{seed}{The random seed for replication of the cross-validation samples.}
@@ -44,7 +45,7 @@ explanation there.  Defaults to "gaussian"}
 
 \item{standardize}{Whether to standardize variables. Default is FALSE, which
 is different from the \pkg{glmnet} default because the topics are already
-standarized.  Note that glmnet standardizes the variables by default but
+standardized.  Note that glmnet standardizes the variables by default but
 then projects them back to their original scales before reporting
 coefficients.}
 
