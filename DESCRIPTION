@@ -1,6 +1,6 @@
 Package: stm
 Title: Estimation of the Structural Topic Model
-Version: 1.3.4
+Version: 1.3.5
 Authors@R: c(
     person("Margaret", "Roberts", email="meroberts@ucsd.edu", role="aut"),
     person("Brandon", "Stewart", email="bms4@princeton.edu", role=c("aut","cre")),
@@ -28,11 +28,11 @@ BugReports: https://github.com/bstewart/stm/issues
 RoxygenNote: 6.1.1
 Language: en-US
 NeedsCompilation: yes
-Packaged: 2019-10-29 22:30:43 UTC; brandonstewart
+Packaged: 2019-12-17 01:09:31 UTC; brandonstewart
 Author: Margaret Roberts [aut],
   Brandon Stewart [aut, cre],
   Dustin Tingley [aut],
   Kenneth Benoit [ctb]
 Maintainer: Brandon Stewart <bms4@princeton.edu>
 Repository: CRAN
-Date/Publication: 2019-10-30 09:00:03 UTC
+Date/Publication: 2019-12-17 12:50:02 UTC
