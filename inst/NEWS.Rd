@@ -1,5 +1,13 @@
 \name{NEWS}
 \title{NEWS file for the stm package}
+\section{Version 1.3.6}{
+\itemize{
+\item Another very small release to address a concern with file download speeds.
+\item took the opportunity to fix a number of small issues.  Thanks to Julia Silge for pointing out an issue with formula.
+\item Super big thanks to Brooks Ambrose for not only making a speed improvement but then noticing I hadn't actually fixed it in 1.3.4.  
+\item Thanks to Sergei Pashakhin for catching an issue with the way summary.estimateEffect() indexed things.
+}
+}
 \section{Version 1.3.5}{
 \itemize{
 \item A small release to correct the class() issue in preparation for R 4.0.0.  Thanks to the R core team for clear directions.

@@ -34,12 +34,12 @@
 #' @references Roberts, M., Stewart, B., Tingley, D., and Airoldi, E. (2013)
 #' "The structural topic model and applied social science." In Advances in
 #' Neural Information Processing Systems Workshop on Topic Models: Computation,
-#' Application, and Evaluation. http://goo.gl/uHkXAQ
+#' Application, and Evaluation.
 #' 
 #' Roberts, M., Stewart, B., Tingley, D., Lucas, C., Leder-Luis, J., Gadarian,
 #' S., Albertson, B., Albertson, B. and Rand, D. (2014). "Structural topic
 #' models for open ended survey responses." American Journal of Political
-#' Science http://goo.gl/0x0tHJ
+#' Science.
 #' 
 #' Additional papers at: structuraltopicmodel.com
 #' @keywords package
@@ -84,7 +84,7 @@ NULL
 #' Journal of Political Science 58, no 4 (2014): 1064-1082.
 #' @keywords datasets
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' 
 #' head(gadarian)
 #' #Process the data for analysis.
@@ -139,7 +139,7 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' \donttest{
 #' 
 #' data(poliblog5k)
 #' head(poliblog5k.meta)

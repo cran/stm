@@ -1,5 +1,4 @@
 ### R code from vignette source 'stmVignette.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: stmVignette.Rnw:73-74
@@ -51,7 +50,7 @@ list(poliblog5k.docs[[1]][,1:5], poliblog5k.docs[[2]][,1:3])
 ###################################################
 ### code chunk number 7: stmVignette.Rnw:237-238
 ###################################################
-load(url("http://goo.gl/VPdxlS"))
+load(url("https://github.com/bstewart/stm/blob/gh-pages/files/VignetteObjects.RData?raw=true"))
 
 
 ###################################################

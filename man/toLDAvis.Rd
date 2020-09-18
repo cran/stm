@@ -4,10 +4,17 @@
 \alias{toLDAvis}
 \title{Wrapper to launch LDAvis topic browser.}
 \usage{
-toLDAvis(mod, docs, R = 30, plot.opts = list(xlab = "PC1", ylab =
-  "PC2"), lambda.step = 0.1, out.dir = tempfile(),
-  open.browser = interactive(), as.gist = FALSE,
-  reorder.topics = TRUE)
+toLDAvis(
+  mod,
+  docs,
+  R = 30,
+  plot.opts = list(xlab = "PC1", ylab = "PC2"),
+  lambda.step = 0.1,
+  out.dir = tempfile(),
+  open.browser = interactive(),
+  as.gist = FALSE,
+  reorder.topics = TRUE
+)
 }
 \arguments{
 \item{mod}{STM object. Output from stm function.}
@@ -54,7 +61,7 @@ or download from CRAN. Note: LDAvis may renumber the topics.
 }
 \examples{
 
-\dontrun{
+\donttest{
 
 mod <- stm(poliblog5k.docs, poliblog5k.voc, K=25,
            prevalence=~rating, data=poliblog5k.meta,

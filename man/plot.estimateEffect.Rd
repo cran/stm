@@ -4,15 +4,37 @@
 \alias{plot.estimateEffect}
 \title{Plot effect of covariates on topics}
 \usage{
-\method{plot}{estimateEffect}(x, covariate, model = NULL,
-  topics = x$topics, method = c("pointestimate", "difference",
-  "continuous"), cov.value1 = NULL, cov.value2 = NULL,
-  moderator = NULL, moderator.value = NULL, npoints = 100,
-  nsims = 100, ci.level = 0.95, xlim = NULL, ylim = NULL,
-  xlab = "", ylab = NULL, main = "", printlegend = T,
-  labeltype = "numbers", n = 7, frexw = 0.5, add = F,
-  linecol = NULL, width = 25, verbose.labels = T, family = NULL,
-  custom.labels = NULL, omit.plot = FALSE, ...)
+\method{plot}{estimateEffect}(
+  x,
+  covariate,
+  model = NULL,
+  topics = x$topics,
+  method = c("pointestimate", "difference", "continuous"),
+  cov.value1 = NULL,
+  cov.value2 = NULL,
+  moderator = NULL,
+  moderator.value = NULL,
+  npoints = 100,
+  nsims = 100,
+  ci.level = 0.95,
+  xlim = NULL,
+  ylim = NULL,
+  xlab = "",
+  ylab = NULL,
+  main = "",
+  printlegend = T,
+  labeltype = "numbers",
+  n = 7,
+  frexw = 0.5,
+  add = F,
+  linecol = NULL,
+  width = 25,
+  verbose.labels = T,
+  family = NULL,
+  custom.labels = NULL,
+  omit.plot = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{Output of estimateEffect, which calculates simulated betas for
@@ -142,7 +164,7 @@ confidence intervals.  See \code{\link{estimateEffect}}.
 }
 \examples{
 
-\dontrun{
+\donttest{
 
 prep <- estimateEffect(1:3 ~ treatment, gadarianFit, gadarian)
 plot(prep, "treatment", model=gadarianFit,
@@ -159,7 +181,7 @@ method="difference",cov.value1=1,cov.value2=0)
 # invalid 'times' value, then you likely have not done this.
 
 #Example of binary times binary interaction
-gadarian$binaryvar <- sample(c(0,1), nrow(gadarian), replace=T)
+gadarian$binaryvar <- sample(c(0,1), nrow(gadarian), replace=TRUE)
 temp <- textProcessor(gadarian$open.ended.response,metadata=gadarian)
 out <- prepDocuments(temp$documents, temp$vocab, temp$meta)
 stm1 <- stm(out$documents, out$vocab, 3, prevalence=~treatment*binaryvar,

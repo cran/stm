@@ -4,9 +4,18 @@
 \alias{plotQuote}
 \title{Plots strings}
 \usage{
-plotQuote(sentences, width = 30, text.cex = 1, maxwidth = NULL,
-  main = NULL, xlab = "", ylab = "", xlim = NULL, ylim = NULL,
-  ...)
+plotQuote(
+  sentences,
+  width = 30,
+  text.cex = 1,
+  maxwidth = NULL,
+  main = NULL,
+  xlab = "",
+  ylab = "",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{sentences}{Vector of sentence to plot.}
@@ -40,7 +49,7 @@ A simple function which wraps sentences at \code{width} characters per line
 and plots the results.
 }
 \examples{
-\dontrun{
+\donttest{
 
 thoughts <- findThoughts(gadarianFit,texts=gadarian$open.ended.response,
 topics=c(1), n=3)$docs[[1]]
