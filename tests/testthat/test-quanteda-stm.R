@@ -22,7 +22,7 @@ test_that("Test that stm works on a quanteda dfm", {
   }
 })
 
-if(requireNamespace("tm",quietly=TRUE) & utils::packageVersion("tm")>=0.6) {
+if(requireNamespace("tm",quietly=TRUE) & utils::packageVersion("tm")>="0.6") {
   test_that("Test that stm works on a classic stm object structure", {
     temp <- textProcessor(documents = gadarian$open.ended.response,
                           metadata = gadarian)

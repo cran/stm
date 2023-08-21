@@ -1,4 +1,4 @@
-8829b67699e081717e06f6e6d9a03ae4 *DESCRIPTION
+1e7c31dc4fde2880b29a22721f54726c *DESCRIPTION
 4f72fc91c168ba96c5402f5ae3664580 *LICENSE
 264870dfc9197e8045b29946620771ce *NAMESPACE
 3c7fb233118cdf644211d5c949ff20ee *R/RcppExports.R
@@ -53,7 +53,7 @@ b931fcf4e8f1eccbc07e877553dfe1bf *R/stm-package.R
 20efbe0d7c516373c600befa9ff69edc *R/stm.control.R
 e80c4380f056afb4c1a59108c3a9676a *R/summary.STM.R
 7a205de0614f5818f00aba52e73c81cb *R/tau.R
-4ae326fbe7cb6db20a8e11a68064ba90 *R/textProcessor.R
+adb6942f0d272d767d17f049118a5ab3 *R/textProcessor.R
 5d125694ebf5b7c1ef965b9d489bbd69 *R/thetaPosterior.R
 39913c560c3c281efb68737cf99db1f8 *R/toLDAvis.R
 55b9818c2dc1604d4b920c3010a064df *R/topicCorr.R
@@ -61,16 +61,16 @@ e80c4380f056afb4c1a59108c3a9676a *R/summary.STM.R
 ee709e20cad95267adde6cc113781099 *R/topicQuality.R
 1b007dc8aa4607f304007fe38929df99 *R/writeLdac.R
 9d69cf1588915d48391a5d63b75a4298 *R/zzz.R
-d472b1c70bd897a3f13c3dcc9df9e4ec *build/vignette.rds
-589b210e41fcce8e66bac63209d1ce65 *data/gadarian.RData
-0650dc65743c8c2927a43fc0b5f99bea *data/gadarianFit.RData
-abc1acec709b702f52eb8234f9dd26a8 *data/poliblog5k.RData
+9059c801ef7726cf4369f62063179cce *build/vignette.rds
+fc0efb23bf377a72ee8181ab63dd7a58 *data/gadarian.RData
+e8af21a4e943175883eea63c50f12da1 *data/gadarianFit.RData
+a7763caa65efc6445fcf779fa810b90c *data/poliblog5k.RData
 3ceb99990cfb00d42ac88c34550f3535 *inst/CITATION
 262b025c91465cbe3e03a187c3be7a90 *inst/NEWS.Rd
 6413ee9879245256fdfca72479f16a30 *inst/WORDLIST
 161f4f2aabb05822d1f175e8cbba73a5 *inst/doc/stmVignette.R
 3573a37805aa5e7e97daa6460b958de2 *inst/doc/stmVignette.Rnw
-b2d6d7c30d1aafe959c2462ff134f247 *inst/doc/stmVignette.pdf
+418973a26b40e4ac51dfedd9dd66dbbd *inst/doc/stmVignette.pdf
 9719acb2bcb2168d4cb00977436b4b4e *man/alignCorpus.Rd
 ed26d2dd8713ba4aaa2eb4d353d71ed7 *man/asSTMCorpus.Rd
 f520123975cee6683d76edefec1ac457 *man/calcfrex.Rd
@@ -136,7 +136,7 @@ ca81d2237fb7ff7ab9bcc80347c4edbc *src/RcppExports.cpp
 2100ebcf41e47fd733acc3c9d515c36b *tests/spelling.R
 6ec39bba8bcfc50a770cca4fe469be79 *tests/testthat.R
 4a46e90a536d5de4996ae011c6434360 *tests/testthat/test-prepare.R
-fc88552062c1238edfda077fc5c83e72 *tests/testthat/test-quanteda-stm.R
+c7029ee850296f47ddf35158c0c8bc67 *tests/testthat/test-quanteda-stm.R
 21467c5e91c20775dec993c103eabce5 *tests/testthat/test-stm-options.R
 690c0c0bd600261d44980fa35b8ddd55 *vignettes/Flowchart.pdf
 1bb9546da39613732f575c7e89411204 *vignettes/STMdiagram.pdf
